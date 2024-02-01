@@ -265,7 +265,6 @@ async function getProducts() {
     showMore();
     productsActions();
   } else {
-    alert("Ошибка");
   }
 }
 function loadProducts(data) {
