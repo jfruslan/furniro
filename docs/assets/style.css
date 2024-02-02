@@ -4060,6 +4060,13 @@ body.locked > .body__shadow {
       -ms-flex-pack: center;
           justify-content: center;
 }
+@media (max-width: 490px) {
+  .furniture__items {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+}
 @media (any-hover: none) {
   .furniture__items {
     -webkit-box-pack: start;
