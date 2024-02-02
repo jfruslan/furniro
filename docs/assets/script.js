@@ -498,50 +498,43 @@ function updateCart(productButton, productId, productAdd = true) {
 function myFurniture(isMobile2) {
   const furniture = document.querySelector(".furniture__body");
   if (furniture) {
-    let setMouseGalleryStyle = function() {
-      let furnitureItemsWidth = 0;
-      furnitureColumn.forEach((element) => {
-        furnitureItemsWidth += element.offsetWidth;
-      });
-      const furnitureDifferent = furnitureItemsWidth - furniture.offsetWidth;
-      const distX = Math.floor(coordXprocent - positionX);
-      positionX = positionX + distX * speed;
-      let position = furnitureDifferent / 200 * positionX;
-      furnitureItems.style.cssText = `transform: translate3d(${-position}px,0,0);`;
-      if (Math.abs(distX) > 0) {
-        requestAnimationFrame(setMouseGalleryStyle);
-      } else {
-        furniture.classList.remove("_init");
-      }
-    };
     const furnitureItems = document.querySelector(".furniture__items");
-    const furnitureColumn = document.querySelectorAll(".furniture__column");
-    const speed = furniture.dataset.speed;
-    let positionX = 0;
-    let coordXprocent = 0;
-    furniture.addEventListener("mousemove", function(e) {
-      const furnitureWidth = furniture.offsetWidth;
-      const coordX = e.pageX - furnitureWidth / 2;
-      coordXprocent = coordX / furnitureWidth * 100;
-      if (!furniture.classList.contains("_init")) {
-        requestAnimationFrame(setMouseGalleryStyle);
-        furniture.classList.add("_init");
-      }
-    });
-    window.addEventListener("mousemove", function(e) {
-      if (furnitureItems.classList.contains("_touch")) {
-        furnitureItems.classList.remove("_touch");
-      }
-      if (!furnitureItems.classList.contains("_mouse")) {
-        furnitureItems.classList.add("_mouse");
-      }
-    });
-    window.addEventListener("touchstart", function(e) {
-      if (!furnitureItems.classList.contains("_touch") && !furnitureItems.classList.contains("_mouse")) {
+    if (!isMobile2.any()) {
+      let setMouseGalleryStyle = function() {
+        let furnitureItemsWidth = 0;
+        furnitureColumn.forEach((element) => {
+          furnitureItemsWidth += element.offsetWidth;
+        });
+        const furnitureDifferent = furnitureItemsWidth - furniture.offsetWidth;
+        const distX = Math.floor(coordXprocent - positionX);
+        positionX = positionX + distX * speed;
+        let position = furnitureDifferent / 200 * positionX;
+        furnitureItems.style.cssText = `transform: translate3d(${-position}px,0,0);`;
+        if (Math.abs(distX) > 0) {
+          requestAnimationFrame(setMouseGalleryStyle);
+        } else {
+          furniture.classList.remove("_init");
+        }
+      };
+      const furnitureColumn = document.querySelectorAll(".furniture__column");
+      const speed = furniture.dataset.speed;
+      let positionX = 0;
+      let coordXprocent = 0;
+      furniture.addEventListener("mousemove", function(e) {
+        const furnitureWidth = furniture.offsetWidth;
+        const coordX = e.pageX - furnitureWidth / 2;
+        coordXprocent = coordX / furnitureWidth * 100;
+        if (!furniture.classList.contains("_init")) {
+          requestAnimationFrame(setMouseGalleryStyle);
+          furniture.classList.add("_init");
+        }
+      });
+    } else if (isMobile2.any()) {
+      if (!furnitureItems.classList.contains("_touch")) {
         console.log("touchstart.");
         furnitureItems.classList.add("_touch");
       }
-    });
+    }
   }
 }
 

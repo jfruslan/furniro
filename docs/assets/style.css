@@ -4034,7 +4034,7 @@ body.locked > .body__shadow {
 .furniture__body {
   position: relative;
 }
-.furniture__body _touch {
+.furniture__body ._touch {
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -4052,10 +4052,10 @@ body.locked > .body__shadow {
       -ms-flex-pack: center;
           justify-content: center;
 }
-.furniture__items_touch {
+.furniture__items._touch {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
-          justify-content: flex-start;
+          justify-content: start;
 }
 
 .furniture__column {
