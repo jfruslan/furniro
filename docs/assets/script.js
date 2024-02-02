@@ -497,7 +497,7 @@ function updateCart(productButton, productId, productAdd = true) {
 }
 function myFurniture(isMobile2) {
   const furniture = document.querySelector(".furniture__body");
-  if (furniture && !isMobile2.any()) {
+  if (furniture) {
     let setMouseGalleryStyle = function() {
       let furnitureItemsWidth = 0;
       furnitureColumn.forEach((element) => {
