@@ -528,6 +528,20 @@ function myFurniture(isMobile2) {
         furniture.classList.add("_init");
       }
     });
+    window.addEventListener("mousemove", function(e) {
+      if (furnitureItems.classList.contains("_touch")) {
+        furnitureItems.classList.remove("_touch");
+      }
+      if (!furnitureItems.classList.contains("_mouse")) {
+        furnitureItems.classList.add("_mouse");
+      }
+    });
+    window.addEventListener("touchstart", function(e) {
+      if (!furnitureItems.classList.contains("_touch") && !furnitureItems.classList.contains("_mouse")) {
+        console.log("touchstart.");
+        furnitureItems.classList.add("_touch");
+      }
+    });
   }
 }
 
