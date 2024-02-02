@@ -4034,6 +4034,12 @@ body.locked > .body__shadow {
 .furniture__body {
   position: relative;
 }
+@media (max-width: 490px) {
+  .furniture__body {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
 @media (any-hover: none) {
   .furniture__body {
     overflow: auto;
@@ -4050,6 +4056,13 @@ body.locked > .body__shadow {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+@media (max-width: 490px) {
+  .furniture__items {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
 }
 @media (any-hover: hover) {
   .furniture__items {
