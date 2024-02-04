@@ -259,7 +259,7 @@ function dataMediaQueries(array, dataSetValue) {
 
 // wrk/common/com.js
 async function getProducts() {
-  const file = "../assets/data/products.json";
+  const file = "./data/products.json";
   let response = await fetch(file, {
     method: "GET"
   });
