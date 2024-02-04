@@ -259,102 +259,15 @@ function dataMediaQueries(array, dataSetValue) {
 
 // wrk/common/com.js
 async function getProducts() {
-  const file = "./data/products.json";
+  const file = "../assets/data/products.json";
   let response = await fetch(file, {
     method: "GET"
   });
   if (response.ok) {
-    let result = await response.json();
-    loadProducts(result);
     showMore();
     productsActions();
   } else {
   }
-}
-function loadProducts(data) {
-  const mainProducts = document.querySelector(".main-products");
-  let productTemplate = "";
-  data.products.forEach((item) => {
-    const productId = item.id;
-    const productImage = item.image;
-    const productTitle = item.title;
-    const productText = item.text;
-    const productPrice = item.price;
-    const productOldPrice = item.priceOld;
-    const productShareUrl = item.shareUrl;
-    const productLikeUrl = item.likeUrl;
-    const productLabels = item.labels;
-    let productTemplateStart = `<div data-pid="${productId}" class="products-body-item">`;
-    let productTemplateEnd = `</div>`;
-    let productTemplateLabels = "";
-    if (productLabels) {
-      let productTemplateLabelsStart = `<div class="products-body-item-labels">`;
-      let productTemplateLabelsEnd = `</div>`;
-      let productTemplateLabelsContent = "";
-      productLabels.forEach((labelItem) => {
-        productTemplateLabelsContent += `<div class="products-body-item-label products-body-item-label_${labelItem.type}">${labelItem.value}</div>`;
-      });
-      productTemplateLabels += productTemplateLabelsStart;
-      productTemplateLabels += productTemplateLabelsContent;
-      productTemplateLabels += productTemplateLabelsEnd;
-    }
-    let productTemplateImage = `
-		<div class="products-body-item-wrapimg">
-		<img class="products-body-item-wrapimg-img" src="assets/img/products/${productImage}" alt="${productTitle}">
-		</div>
-`;
-    let productTemplateBodyStart = `<div class="products-body-item-content">`;
-    let productTemplateBodyEnd = `</div>`;
-    let productTemplateContent = `
-<div class="products-body-item-title">
-		${productTitle}</div>
-<div class="products-body-item-text">
-		${productText}
-</div>
-`;
-    let productTemplatePrices = "";
-    let productTemplatePricesStart = `<div class="products-body-item-prices">`;
-    let productTemplatePricesCurrent = `<div class="products-body-item-prices-price">Rp ${productPrice}</div>`;
-    let productTemplatePricesOld = `<div class="products-body-item-prices-oldprice">Rp ${productOldPrice}</div>`;
-    let productTemplatePricesEnd = `</div>`;
-    productTemplatePrices = productTemplatePricesStart;
-    productTemplatePrices += productTemplatePricesCurrent;
-    if (productOldPrice) {
-      productTemplatePrices += productTemplatePricesOld;
-    }
-    productTemplatePrices += productTemplatePricesEnd;
-    let productTemplateActions = `
-<div class="products-body-item-actions">
-	<button type="button" class="products-body-item-actions-button">Add to cart</button>
-	<div class="products-body-item-actions-links">
-		<a href="${productShareUrl}#a" class="products-body-item-actions-links-item _icon-share">Share</a>
-		<a href="${productLikeUrl}#a" class="products-body-item-actions-links-item _icon-favorite">Like</a>
-	</div>
-</div>`;
-    let productTemplateBody = "";
-    productTemplateBody += productTemplateBodyStart;
-    productTemplateBody += productTemplateContent;
-    productTemplateBody += productTemplatePrices;
-    productTemplateBody += productTemplateActions;
-    productTemplateBody += productTemplateBodyEnd;
-    productTemplate += productTemplateStart;
-    productTemplate += productTemplateLabels;
-    productTemplate += productTemplateImage;
-    productTemplate += productTemplateBody;
-    productTemplate += productTemplateEnd;
-  });
-  let productsContainer = `
-	<div class="container products-container">
-	<h2 class="products-title">Our Products</h2>
-	<div class="products-body">
-			${productTemplate}
-	</div>
-	<button type="button" class="products-button">
-	<p class="products-button-text">Show More</p>
-	</button>
-</div>
-	`;
-  mainProducts.insertAdjacentHTML("beforeend", productsContainer);
 }
 function showMore() {
   const button = document.querySelector(".products-button");
