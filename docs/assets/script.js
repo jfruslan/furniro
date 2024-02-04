@@ -15,6 +15,10 @@ var isMobile = { Android: function() {
 }, any: function() {
   return isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows();
 } };
+function addTouchClass() {
+  if (isMobile.any())
+    document.documentElement.classList.add("touch");
+}
 var _slideUp = (target, duration = 500, showmore = 0) => {
   if (!target.classList.contains("_slide")) {
     target.classList.add("_slide");
@@ -255,7 +259,7 @@ function dataMediaQueries(array, dataSetValue) {
 
 // wrk/common/com.js
 async function getProducts() {
-  const file = "/assets/data/products.json";
+  const file = "../assets/data/products.json";
   let response = await fetch(file, {
     method: "GET"
   });
@@ -529,11 +533,6 @@ function myFurniture(isMobile2) {
           furniture.classList.add("_init");
         }
       });
-    } else if (isMobile2.any()) {
-      if (!furnitureItems.classList.contains("_touch")) {
-        console.log("touchstart.");
-        furnitureItems.classList.add("_touch");
-      }
     }
   }
 }
@@ -11894,6 +11893,7 @@ function burgerMenu() {
 }
 
 // wrk/assets/script.js
+addTouchClass();
 spollers();
 getProducts();
 myFurniture(isMobile);
