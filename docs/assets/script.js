@@ -258,16 +258,246 @@ function dataMediaQueries(array, dataSetValue) {
 }
 
 // wrk/common/com.js
+var resal2 = {
+  "products": [
+    {
+      "id": 1,
+      "url": "#",
+      "title": "Syltherine",
+      "text": "Stylish cafe chair",
+      "labels": [
+        {
+          "type": "discount",
+          "value": "-30%"
+        }
+      ],
+      "image": "01.webp",
+      "price": "2.500.000",
+      "priceOld": "3.500.000",
+      "shareUrl": "",
+      "likeUrl": ""
+    },
+    {
+      "id": 2,
+      "url": "#",
+      "title": "Leviosa",
+      "text": "Stylish cafe chair",
+      "labels": [
+        {
+          "type": "discount",
+          "value": "-30%"
+        }
+      ],
+      "image": "02.webp",
+      "price": "2.500.000",
+      "priceOld": "3.500.000",
+      "shareUrl": "",
+      "likeUrl": ""
+    },
+    {
+      "id": 3,
+      "url": "#",
+      "title": "Lolito",
+      "text": "Luxury big sofa",
+      "labels": [
+        {
+          "type": "discount",
+          "value": "-50%"
+        }
+      ],
+      "image": "03.webp",
+      "price": "7.000.000",
+      "priceOld": "14.000.000",
+      "shareUrl": "",
+      "likeUrl": ""
+    },
+    {
+      "id": 4,
+      "url": "#",
+      "title": "Respira",
+      "text": "Minimalist fan",
+      "labels": [
+        {
+          "type": "new",
+          "value": "New"
+        }
+      ],
+      "image": "04.webp",
+      "price": "500.000",
+      "priceOld": "",
+      "shareUrl": "",
+      "likeUrl": ""
+    },
+    {
+      "id": 5,
+      "url": "#",
+      "title": "Grifo",
+      "text": "Night lamp",
+      "labels": "",
+      "image": "05.webp",
+      "price": "1.500.000",
+      "priceOld": "",
+      "shareUrl": "",
+      "likeUrl": ""
+    },
+    {
+      "id": 6,
+      "url": "#",
+      "title": "Muggo",
+      "text": "Small mug",
+      "labels": [
+        {
+          "type": "discount",
+          "value": "-50%"
+        },
+        {
+          "type": "new",
+          "value": "New"
+        }
+      ],
+      "image": "06.webp",
+      "price": "1.500.000",
+      "priceOld": "2.500.000",
+      "shareUrl": "",
+      "likeUrl": ""
+    },
+    {
+      "id": 7,
+      "url": "#",
+      "title": "Pingky",
+      "text": "Cute bed set",
+      "labels": [
+        {
+          "type": "discount",
+          "value": "-50%"
+        }
+      ],
+      "image": "07.webp",
+      "price": "7.000.000",
+      "priceOld": "14.500.000",
+      "shareUrl": "",
+      "likeUrl": ""
+    },
+    {
+      "id": 8,
+      "url": "#",
+      "title": "Potty",
+      "text": "Minimalist flower pot",
+      "labels": [
+        {
+          "type": "new",
+          "value": "New"
+        }
+      ],
+      "image": "08.webp",
+      "price": "500.000",
+      "priceOld": "",
+      "shareUrl": "",
+      "likeUrl": ""
+    }
+  ]
+};
 async function getProducts() {
+  const mainProducts = document.querySelector(".main-products");
   const file = "../assets/data/products.json";
   let response = await fetch(file, {
     method: "GET"
   });
-  if (response.ok) {
+  if (response.ok && mainProducts) {
+    let result = await response.json();
+    loadProducts(result, mainProducts);
     showMore();
     productsActions();
-  } else {
+  } else if (mainProducts) {
+    let result = resal2;
+    loadProducts(result, mainProducts);
+    showMore();
+    productsActions();
   }
+}
+function loadProducts(data, mainProducts) {
+  let productTemplate = "";
+  data.products.forEach((item) => {
+    const productId = item.id;
+    const productImage = item.image;
+    const productTitle = item.title;
+    const productText = item.text;
+    const productPrice = item.price;
+    const productOldPrice = item.priceOld;
+    const productShareUrl = item.shareUrl;
+    const productLikeUrl = item.likeUrl;
+    const productLabels = item.labels;
+    let productTemplateStart = `<div data-pid="${productId}" class="products-body-item">`;
+    let productTemplateEnd = `</div>`;
+    let productTemplateLabels = "";
+    if (productLabels) {
+      let productTemplateLabelsStart = `<div class="products-body-item-labels">`;
+      let productTemplateLabelsEnd = `</div>`;
+      let productTemplateLabelsContent = "";
+      productLabels.forEach((labelItem) => {
+        productTemplateLabelsContent += `<div class="products-body-item-label products-body-item-label_${labelItem.type}">${labelItem.value}</div>`;
+      });
+      productTemplateLabels += productTemplateLabelsStart;
+      productTemplateLabels += productTemplateLabelsContent;
+      productTemplateLabels += productTemplateLabelsEnd;
+    }
+    let productTemplateImage = `
+		<div class="products-body-item-wrapimg">
+		<img class="products-body-item-wrapimg-img" src="assets/img/products/${productImage}" alt="${productTitle}">
+		</div>
+`;
+    let productTemplateBodyStart = `<div class="products-body-item-content">`;
+    let productTemplateBodyEnd = `</div>`;
+    let productTemplateContent = `
+<div class="products-body-item-title">
+		${productTitle}</div>
+<div class="products-body-item-text">
+		${productText}
+</div>
+`;
+    let productTemplatePrices = "";
+    let productTemplatePricesStart = `<div class="products-body-item-prices">`;
+    let productTemplatePricesCurrent = `<div class="products-body-item-prices-price">Rp ${productPrice}</div>`;
+    let productTemplatePricesOld = `<div class="products-body-item-prices-oldprice">Rp ${productOldPrice}</div>`;
+    let productTemplatePricesEnd = `</div>`;
+    productTemplatePrices = productTemplatePricesStart;
+    productTemplatePrices += productTemplatePricesCurrent;
+    if (productOldPrice) {
+      productTemplatePrices += productTemplatePricesOld;
+    }
+    productTemplatePrices += productTemplatePricesEnd;
+    let productTemplateActions = `
+<div class="products-body-item-actions">
+	<button type="button" class="products-body-item-actions-button">Add to cart</button>
+	<div class="products-body-item-actions-links">
+		<a href="${productShareUrl}#a" class="products-body-item-actions-links-item _icon-share">Share</a>
+		<a href="${productLikeUrl}#a" class="products-body-item-actions-links-item _icon-favorite">Like</a>
+	</div>
+</div>`;
+    let productTemplateBody = "";
+    productTemplateBody += productTemplateBodyStart;
+    productTemplateBody += productTemplateContent;
+    productTemplateBody += productTemplatePrices;
+    productTemplateBody += productTemplateActions;
+    productTemplateBody += productTemplateBodyEnd;
+    productTemplate += productTemplateStart;
+    productTemplate += productTemplateLabels;
+    productTemplate += productTemplateImage;
+    productTemplate += productTemplateBody;
+    productTemplate += productTemplateEnd;
+  });
+  let productsContainer = `
+	<div class="container products-container">
+	<h2 class="products-title">Our Products</h2>
+	<div class="products-body">
+			${productTemplate}
+	</div>
+	<div class="products-button">
+	<p class="products-button-text">Show More</p>
+	</div>
+</div>
+	`;
+  mainProducts.insertAdjacentHTML("beforeend", productsContainer);
 }
 function showMore() {
   const button = document.querySelector(".products-button");
